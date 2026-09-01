@@ -4,6 +4,8 @@
 
 I’m taking my time with it, so there may be periods without any commits. I’ll push new updates whenever I learn something new or have something interesting to share. No rush, just pure effort and enjoying the journey.
 
+To be specific, I will use **C++23** for this course.
+
 **It’s late 2026, and I’m still giving C++ a try instead of Rust or any other programming language.**
 
 - No AI assistants
