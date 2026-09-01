@@ -212,9 +212,9 @@ It can also determine the size of classes, and unions.
 Syntax:
 
 ```c++
-sizeof(int);
+sizeof(int); // 4 bytes
 // or
-sizeof(10);
+sizeof(10); // 4 bytes
 ```
 
 > You may found `sizeof` return different results on the different operating system. It is because `sizeof` doesn't depend on CPU, it depends on the ABI's data model, which the OS + compiler pick. That's why Windows x64 and Linux x64 on identical hardware, disagree.
@@ -226,3 +226,170 @@ Two separate things are going on:
 - **Which integer type absorbed the change**:
     * Unix chose [LP64](https://archive.opengroup.org/public/tech/aspen/lp64_wp.htm) `long` and pointers both become 64-bit.
     * Microsoft choose [LLP64](https://learn.microsoft.com/en-us/windows/win32/winprog64/abstract-data-models) only `long long` and pointers grow, `long` stay 32-bit, because decades of Windows code assumed `sizeof(long) == sizeof(int) == sizeof(void)`. Neither is "wrong", the standard permits both.
+
+## Global variables and scope variables
+
+In programming, the scope of a variable is defined as the extent of the program code within which the variable can be accessed or declared or worked with.
+
+There are mainly two types of variable scropes:
+
+- Local variables
+- Global variables
+
+### Local variables
+
+Variables defined within a function or block are said to be local to those functions.
+
+Anything between `{` and `}` is said to be inside a block.
+
+Local variables do not exist outside the block in which they are declared, i.e they cannot be accessed or used outside that block.
+
+Declaring local variables:
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 10;
+    /*
+    x is belong to main function only, it stay in between curly braces {} and valid to main function block. Cannot accessed or used outside of main function.
+    */
+    count << x << endl; // 10
+    
+    return 0;
+}
+```
+
+### Global variables
+
+Global variables can be accessed from any part of the program.
+
+- They are available throughout the lifetime of a program.
+- They are declared at the top of the program outside all the functions or blocks
+
+Declaring global variables:
+
+```c++
+#include <iostream>
+using namespace std;
+
+int x = 10;
+
+cout << x << endl;
+int main() {
+
+    cout << x << endl; // 10
+    return 0;
+}
+```
+
+Whenever there is a local variable defined with same name as that of a global variable then the compiler will give precedence to the local variable.
+
+```c++
+#include <iostream>
+using namespace std;
+
+int x = 10;
+int main() {
+    int x = 20;
+    cout << x << endl; // 20
+    return 0;
+}
+```
+
+**When a variable is referenced outside its scope:**
+
+- A local variable cannot be accessed outside the function/block where it is declared resulting in a compiler error.
+- A global variable can be accessed anywhere in the program unless explicitly hidden by a local variable
+
+```c++
+#include <iostream>
+using namespace std;
+
+void localVariable() {
+    int y = 20; // Local variable
+}
+
+int main() {
+    localVariable();
+    
+    // accessing local variable y outside of its scope will cause compilation error
+    cout << y << endl; // error: ‘y’ was not declared in this scope
+    return 0;
+}
+```
+
+### Using the `extern` keyword
+
+If a global variable is defined after it is used in the program, the compiler throws an error.
+
+To solve this, we use the `extern` keyword, which tells the compiler that the variable is defined elswhere in the program.
+
+```c++
+#include <iostream>
+using namespace std;
+
+extern int x;
+int main() {
+    cout << x << endl; // 10
+    return 0;
+}
+
+int x = 10;
+```
+
+### Global and local variables with the same name
+
+When a local and global variables share the same name:
+
+1. The local variable takes precendence within the block where it is declared.
+    ```c++
+    // example 1: local variable overshadows global variable
+    #include <iostream>
+    using namespace std;
+
+    // global variable
+    int x = 10;
+    int main() {
+        // local variable
+        int x = 20;
+        cout << x << endl; // 20
+        return 0;
+    }
+    ```
+    
+    ```c++
+    // example 2: nested local variable
+    #include <iostream>
+    using namespace std;
+
+    // global variable
+    int x = 10;
+    int main() {
+        // local variable
+        int x = 20;
+        {
+            int x = 30;
+            cout << x << endl; // 30
+        }
+        return 0;
+    }
+    ```
+2. The global variable is overshadowed but still exists and can be accessed using the scope resolution operator `::`
+    ```c++
+    #include <iostream>
+    using namespace std;
+
+    // global variable
+    int x = 10;
+    int main() {
+        // local variable
+        int x = 20;
+        {
+            int x = 30;
+            cout << ::x << endl; // 10
+        }
+        return 0;
+    }
+    ```
