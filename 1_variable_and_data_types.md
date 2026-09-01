@@ -393,3 +393,14 @@ When a local and global variables share the same name:
         return 0;
     }
     ```
+
+### Scope rules in C++
+
+1. Functions, loops and conditional statements create a new scope:
+    * Each function, loop, or conditional block introduces a new scope.
+    * Variables declared inside the block are local to that scope.
+2. Outer scope variables are accessible in inner scopes:
+    * Variables from an outer scope can be used inside inner scope unless overshadowed.
+    * However, inner scope variables are not accessible outside their block.
+3. Creating a new scope with curly braces:
+    * Curly braces `{}` can be used to create a new block scope anywhere in the program.
