@@ -448,7 +448,7 @@ I found a simple trick:
     ```
 2. **Remember the data types size:**
 
-    | Data types | Size |
+    | Data types | Size (bytes) |
     |-|-|
     | short int | 2 |
     | unsigned short int | 2 |
