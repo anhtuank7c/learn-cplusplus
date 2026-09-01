@@ -404,3 +404,77 @@ When a local and global variables share the same name:
     * However, inner scope variables are not accessible outside their block.
 3. Creating a new scope with curly braces:
     * Curly braces `{}` can be used to create a new block scope anywhere in the program.
+
+## Ranges of Data Types in C++
+
+Data type modifiers available in C++ are:
+
+- Signed
+- Unsigned
+- Short
+- Long
+
+The below tables summarizes the modified size and range of built-in data types which also depends upon the compiler (i.e 32-bits, 64-bits) when combined with the type modifiers:
+
+| Data Type | Size (bytes) | Range |
+|-|-|-|
+| short int | 2 | -32,768 to 32,767 |
+| unsigned short int | 2 | 0 to 65,535 |
+| unsigned int | 4 | 0 to 4,294,967,295 |
+| int | 2 or 4 | -32,768 to 32,767 or -2,147,483,648 to 2,147,483,647 |
+| long int | 4 | -2,147,483,648 to 2,147,483,647 |
+| unsigned long int | 4 | 0 to 4,294,967,295 |
+| long long int | 8 | -(2^63) to (2^63)-1 |
+| unsigned long long int | 8 | 0 to 18,446,744,073,709,551,615 |
+| signed char | 1 | -128 to 127 |
+| unsigned char | 1 | 0 to 255 |
+| float | 4 | -3.4×10^38 to 3.4×10^38 |
+| double | 8 | -1.7×10^308 to1.7×10^308 |
+| long double | 12 | -1.1×10^4932 to1.1×10^4932 |
+| wchar_t | 2 or 4 | 1 wide character |
+
+### How to remember the ranges?
+
+Well, I don't. It is impractical to try to remember all those dumb numbers.
+
+I found a simple trick:
+
+1. **Remember "Bytes -> Bits" ladder**
+    ```
+    1 byte = 8 bits
+    2 bytes = 16 bits
+    4 bytes = 32 bits
+    8 bytes = 64 bits
+    ```
+2. **Remember the data types size:**
+
+    | Data types | Size |
+    |-|-|
+    | short int | 2 |
+    | unsigned short int | 2 |
+    | unsigned int | 4 |
+    | int | 2 or 4 |
+    | long int | 4 |
+    | unsigned long int | 4 |
+    | long long int | 8 |
+    | unsigned long long int | 8 |
+    | signed char | 1 |
+    | unsigned char | 1 |
+    | float | 4 |
+    | double | 8 |
+    | long double | 12 |
+3. **Use the right formulas to calculate the ranges**
+    * Signed N-bit: `-2^(N-1) -> 2^(N-1)-1`
+    * Unsigned N-bit: `0 -> 2^N-1`
+
+**Now, it's time to practice.**
+
+What is the range of `short int`?
+
+Well, `short int` takes `2 bytes = 16 bits`. So when we talk about `short int` without explicitly specifying `unsigned`, it is a signed integer by default.
+
+Using the signed N-bit formula, we have the range of short int: `-2^(16-1) = -32,768` to `2^(16-1)-1 = 32,767`
+
+See? We don't have to memorize those dumb numbers.
+
+**Remembering the size and the formula makes much more sense.**
