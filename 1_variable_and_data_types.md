@@ -244,6 +244,8 @@ Anything between `{` and `}` is said to be inside a block.
 
 Local variables do not exist outside the block in which they are declared, i.e they cannot be accessed or used outside that block.
 
+If you trying to access uninitialized local variable, it may return any random value and have no guarantee about any value.
+
 Declaring local variables:
 
 ```c++
@@ -255,7 +257,11 @@ int main() {
     /*
     x is belong to main function only, it stay in between curly braces {} and valid to main function block. Cannot accessed or used outside of main function.
     */
-    count << x << endl; // 10
+    cout << x << endl; // 10
+    
+    int y; // uninitialized local variable
+    
+    cout << y << endl; // print out any value without guarantee
     
     return 0;
 }
@@ -266,7 +272,8 @@ int main() {
 Global variables can be accessed from any part of the program.
 
 - They are available throughout the lifetime of a program.
-- They are declared at the top of the program outside all the functions or blocks
+- They are declared at the top of the program outside all the functions or blocks.
+- If you access uninitialized global variable, it will return default value `0` (if data type are int, double, float, long => return `0`, if char => return ASCII value 0 which is `backslash zero`, if bool => return false value which is 0)
 
 Declaring global variables:
 
@@ -324,7 +331,7 @@ int main() {
 
 If a global variable is defined after it is used in the program, the compiler throws an error.
 
-To solve this, we use the `extern` keyword, which tells the compiler that the variable is defined elswhere in the program.
+To solve this, we use the `extern` keyword, which tells the compiler that the variable is defined elsewhere in the program.
 
 ```c++
 #include <iostream>
